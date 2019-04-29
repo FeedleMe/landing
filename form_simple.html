@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Feedback Generator</title>
+<!--
+<script src="hashids.js-1.1.1/dist/hashids.js"></script>
+<script type="text/javascript">
+var hashids = new Hashids("this is my salt", 8, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
+
+var id = hashids.encode(1, 2, 3);
+var numbers = hashids.decode(id);
+
+$("#input").text("["+numbers.join(", ")+"]");
+$("#output").text(id);
+</script>
+-->
+</head>
+<body>
+  <h1>Feedback Generator</h1>
+  <p>The result of this form is just available for four hours!</p>
+  <p>Insert the information below and create your own feedback page. It's very simple<br />
+    complete the form below, you will get an email with the url for the feedback form and after four hours
+    you will get the resume/summary of the feedbackform.
+    <br>
+    <div>
+      All data will be deleted after four hours!
+    </div>
+  </p>
+  <hr>
+    <form class="" action="index.html" method="post">
+      <p>
+        <label for="FeedbackTitle">
+          Feedback title:
+          <input type="text" name="fb_title" placeholder="subject">
+        </label>
+      </p>
+
+      <label for="feedbackMode">
+        Which mode do you want:
+        <input type="radio" name="fb_mode" value="2" checked> Mode 1  good/bad
+        <input type="radio" name="fb_mode" value="4"> Mode 2 very good/ok/not Ok/Bad
+        <input type="radio" name="fb_mode" value="5"> Mode 3 very good/ok/not Ok/Bad
+        <input type="radio" name="fb_mode" value="10"> Mode 4 very good/ok/not Ok/Bad
+      </label>
+      <p>
+        <label for="yourMailAddress">
+          Your eMail for the link and the resume: <input type="email" name="fb_mail" required>
+        </label>
+      </p>
+      <button>Start and send me the link</button>
+
+<!--
+      <ul>
+      	  <li>
+      		    <div>Input</div>
+      		    <div>Output</div>
+      	  </li>
+        	<li>
+      		    <div id="input"></div>
+      		    <div id="output"></div>
+      	  </li>
+      </ul>
+-->
+    </form>
+    <!--
+>> https://codepen.io/ivanakimov/pen/bNmExm  / https://hashids.org/javascript/
+-->
+
+
+</body>
+</html>
