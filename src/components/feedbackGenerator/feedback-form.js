@@ -10,6 +10,11 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core/styles';
 
+function validEmail(email) {
+	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(String(email).toLowerCase());
+}
+
 const styles = {
 	container: {
 		marginTop: 40,
@@ -66,12 +71,44 @@ const FeedbackForm = ({ classes }) => {
 	const [title, setTitle] = useState('');
 	const [mode, setMode] = useState('mode1');
 	const [email, setEmail] = useState('');
+	const [titleError, setTitleError] = useState(false);
+	const [emailError, setEmailError] = useState(false);
 	const [formSend, setFormSend] = useState(false);
+
+	const validateForm = () => {
+		let error, errorTitle, errorEmail;
+
+		if (title === '' || title.length < 3) {
+			errorTitle = true;
+			setTitleError(true);
+		} else {
+			errorTitle = false;
+			setTitleError(false);
+		}
+		if (!validEmail(email)) {
+			errorEmail = true;
+			setEmailError(true);
+		} else {
+			errorEmail = false;
+			setEmailError(false);
+		}
+
+		if (!errorEmail && !errorTitle) {
+			error = false;
+		} else {
+			error = true;
+		}
+
+		return error;
+	};
 
 	const onFormSubmit = e => {
 		e.preventDefault();
-
+		const error = validateForm();
 		console.log('onFormSubmit');
+		if (!error) {
+			console.log('no error, continue!');
+		}
 	};
 
 	return (
@@ -89,11 +126,13 @@ const FeedbackForm = ({ classes }) => {
 								Define your Feedback Title
 							</FormLabel>
 							<TextField
+								error={titleError ? true : false}
 								id="title"
 								label="Feedback Title"
 								value={title}
 								className={classes.textField}
 								onChange={e => setTitle(e.target.value)}
+								onBlur={() => validateForm()}
 								margin="normal"
 							/>
 						</FormControl>
@@ -104,11 +143,13 @@ const FeedbackForm = ({ classes }) => {
 								Your E-Mail for the link and the resume
 							</FormLabel>
 							<TextField
+								error={emailError ? true : false}
 								id="email"
 								label="E-Mail"
 								value={email}
 								className={classes.textField}
 								onChange={e => setEmail(e.target.value)}
+								onBlur={() => validateForm()}
 								margin="normal"
 							/>
 						</FormControl>
